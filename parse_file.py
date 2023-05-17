@@ -5,7 +5,7 @@ import time
 
 start_time = time.time()
 
-road_to_file = "films/watched.txt"
+road_to_file = "watched.txt"
 
 date_row_check = str.maketrans("", "", ".: ")
 
@@ -17,11 +17,7 @@ with open(road_to_file, "r", encoding="utf_8_sig") as file:
 
         # Строка с датой
         if row[:13].translate(date_row_check).isnumeric():
-
-            # ID
-            film["id"] = counter
-            counter += 1
-
+            
             # Can be comment in date row, check for this
             check_for_comments = [el.strip() for el in row.split("\t") if el.strip()]
             if len(check_for_comments) > 1:
@@ -35,8 +31,12 @@ with open(road_to_file, "r", encoding="utf_8_sig") as file:
             else:
                 film["Watched"] = row.strip()
 
+            # ID
+            film["id"] = counter
+            counter += 1
+
             films.append(film)
-            
+
             # For new film, this film done
             film = dict()
 
@@ -120,7 +120,7 @@ with open(road_to_file, "r", encoding="utf_8_sig") as file:
                     raise ex
                 
 
-with open("films/watched.json", "w", encoding="utf_8_sig") as file:
+with open("watched.json", "w", encoding="utf_8_sig") as file:
     json.dump(films, file, indent=4, ensure_ascii=False)
 
 
