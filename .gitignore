@@ -2,6 +2,9 @@
 __pycache__/
 
 info_storage/
+migrations/
+media/
+static/
 
 *.json
 *.sqlite3

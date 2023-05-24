@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} All Movies {% endblock %}
+
+{% block content %}
+
+
+<div class="container mt-5">
+    <div class="row">
+        {% for movie in movies %}
+
+        <!-- ver 1-->
+        <div class="card-xl-12">
+            <div class="card mb-3 card-body">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <a href="#">
+                            <img src="{{movie.movie_poster.url}}" alt="{{movie.movie_poster.url}}" class="width-90 rounded-3" width="90">
+                        </a>
+                    </div>
+                    <div class="col">
+                        <div class="overflow-hidden flex-nowrap">
+                            <h6 class="mb-1">
+                                <a href="#" class="text-reset">{{movie.title}}</a>
+                            </h6>
+                            <span class="text-muted d-block mb-2 small">{{movie.watched}}</span>
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <div class="row align-items-center g-0">
+                                        1                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ver 2-->
+        <div class="col-lg-4">
+            <img src="{{movie.movie_poster.url}}" alt="{{movie.movie_poster.url}}" class="width-90">
+        </div>
+        <div class="col-lg-8">
+
+            
+
+            <article class="mb-5">
+                <header class="mb-4">
+                    <h1 class="mb-1">
+                        <span class="display-4 fw-bolder">{{ movie.title }} </span>
+                    </h1>
+                    <div class="text-muted fst-italic mb-2">Watched on {{ movie.watched}}</div>
+                </header>
+                <section class="mb-5">
+                    <p class="fs-5 mb-4">
+                        {{ movie.comments|safe }}
+                    </p>
+                </section>
+            </article>
+
+            
+
+            
+
+            {% empty %}
+            <div class="card shadow-lg border-0 rounded-lg mt-0 mb-5">
+                <div class="card-title justify-content-center">
+                    <h2 class="title-1">Тут пусто</h2>
+                </div>
+            </div>
+            
+            
+        </div>
+        {% endfor %}
+    </div>
+</div>
+        
+
+{% endblock content %}
+
