@@ -50,7 +50,7 @@ class Genre(models.Model):
         return self.name
     
     # def get_absolute_url(self):
-    #     return reverse("genre", args=[self.slug])
+    #     return reverse("genre-list", args=[self.slug])
 
     class Meta:
         verbose_name = "Жанр"
@@ -64,6 +64,7 @@ class CastMember(models.Model):
     favorite = models.BooleanField(default=False, verbose_name="Буду следить?")
     votes = models.IntegerField(default=0, verbose_name="Сколько раз проголосовали")
 
+    photo = models.ImageField(upload_to=r"cast/photos/%Y/%m/%d/", blank=True, verbose_name="Фото")
     slug = models.SlugField(unique=True)
 
     def __str__(self):
@@ -75,6 +76,7 @@ class CastMember(models.Model):
     class Meta:
         verbose_name = "Cast Member"
         verbose_name_plural = "Cast Members"
+        ordering = ["name"]
 
 
     

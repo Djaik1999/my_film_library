@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} All Movies {% endblock %}
+
+{% block content %}
+
+<div class="album py-5 bg-body-tertiary h-100">
+    <div class="container">
+        <divr class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-3">
+            {% for movie in movies %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img class="db-placeholder-img card-img-top" 
+                        {% if movie.movie_poster %}
+                         src="{{movie.movie_poster.url}}"
+                        {% else %}:
+                         src="{% static 'films/images/empty_movie_poster.jpg' %}"
+                        {% endif %}
+                         alt="{{movie.title}}" 
+                         width="100%">
+
+                <div class="card-body position-relative">
+                    <p class="card-text">{{movie.title}}</p>
+                    <p><small class="text-body-secondary"></small></p>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{{ movie.get_absolute_url }}" class="btn btn-sm btn-outline-secondary">View</a>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Edit</button>
+                        </div>
+                    </div>
+
+                    <!-- !!! Убрать style отсюда -->
+                    <p class="text-body-secondary" style="margin: 20px;">
+                        <small class="position-absolute bottom-0 start-0" style="padding: 5px;">{{movie.watched}}</small>
+                    </p>
+                </div>
+
+                </div>
+                
+            </div>
+            {% endfor %}
+        </divr>
+    </div>
+</div>       
+
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} All cast members {% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class="row">
+        
+        <div class="col-lg-8">
+            {% for member in cast_members %}
+            <div class="card">
+                <div class="card-title justify-content-center">
+                    <h2 class="detail-name">{{ member.name }}</h2>
+                </div>
+
+                {% if member.phohoto %}
+                <img src="{{member.photo.url}}" alt="{{member.name}}" class="card-img-top">
+                {% else %}
+                <img src="{% static 'films/images/empty_cast_poster.webp' %}" alt="{{member.name}}" class="card-img-top" width="200">
+                {% endif %}
+            </div>
+            {% endfor %}  
+        </div>
+          
+    </div>
+</div>
+
+
+{% endblock content %}
