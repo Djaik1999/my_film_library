@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{cast_memeber.name}} {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 mb-sm-5">
+            <div class="card border-0">
+                <div class="card-body">
+                    <div class="row ">
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                            <img src="{{cast_member.photo.url}}" alt="{{cast_member.name}}" class="img-fluid img-thumbnail">
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded">
+                                <h3 class="display-4 mb-0">{{cast_member.name}}</h3>
+                                <span class="text-primary">Actor</span>
+                            </div>
+                            <ul class="list-unstyled mb-1-9">
+                                <li class="mb-2 mb-xl-3 display-28">
+                                    <span class="display-26 text-secondary me-2 font-weight-600">Дата рождения:</span>
+                                    {{ cast_member.born|default:"Не указано" }} • <span class="text-muted">33 года</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 mb-sm-5">
+            <div class="col-lg-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col">Фильм</th>
+                            <th class="col">Комментарии</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for movie in cast_member.movie_set.all %}
+                        <tr>
+                            <th>{{movie.title}}</th>
+                            
+                            <th>
+                                {% if movie.castmembercomment_set.all %}
+                                {# !!Вытаскивает все комментарии для фильма (для всех актёров) #}
+
+                                    <!-- Ver 1 -->
+                                    <ul class="list-group list-group-flush">
+                                    {% for comment in movie.castmembercomment_set.all %}
+                                    {# !!Поэтому делаю проверку #}
+                                        {% if comment.cast_member == cast_member%}
+                                        <li class="list-group-item">{{comment.comment}}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </ul>
+
+                                    <!-- Ver 2 -->
+                                    <div class="container">
+                                        <div class="row">
+                                            {% for comment in movie.castmembercomment_set.all %}
+                                                {% if comment.cast_member == cast_member%}
+                                                <div class="col-lg-3">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <div class="card-text">
+                                                                {{comment.comment}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                
+                                {% else %}
+                                    Empty
+                                {% endif %}
+                            </th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-lg-12 mb-sm-5">
+            <div class="col-lg-6">
+                <span class="section-title text-primary mb-3 mb-sm-4">Movies</span>
+                {% for movie in cast_member.movie_set.all %}
+                    <a href="{% url 'movie-detail' movie.slug %}"><p>{{movie.title}}</p></a>
+                {% endfor %}
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quidem quaerat voluptates dignissimos architecto nobis, earum saepe quasi odit labore officia, doloribus harum dolorum ipsa, voluptatibus molestias optio tempora. Praesentium voluptate perspiciatis veniam modi soluta, iure quam animi sequi obcaecati temporibus quis aut pariatur ea dicta placeat in consectetur assumenda!</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

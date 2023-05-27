@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 
-from .models import Movie, CastMember
+from .models import Movie, CastMember, CastMemberComment
 
 
 class MovieListView(ListView):
@@ -22,3 +22,10 @@ class CastListView(ListView):
     model = CastMember
     template_name = "movies/cast_list_view.html"
     context_object_name = "cast_members"
+
+
+class CastDetailView(DeleteView):
+    model = CastMember
+    template_name = "movies/cast_detail_view.html"
+    context_object_name = "cast_member"
+    slug_url_kwarg = "slug"

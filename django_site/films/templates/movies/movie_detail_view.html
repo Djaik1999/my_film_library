@@ -17,12 +17,12 @@
 
             </div>
             <div class="col-md-8">
-                <div class="small mb-1">Watched: {{movie.watched}}</div>
+                <div class="small fst-italic mb-1">Watched: {{movie.watched}}</div>
                 <h1 class="display-5 fw-bolder">{{ movie.title }}</h1>
                 <p class="fs-5">{{ movie.comments }}</p>
                 <div class="d-flex">
                     {% for cast_member in movie.cast.all %}
-                        <a href="#" class="btn btn-outline-dark flex-shrink-0">{{ cast_member.name }}</a>
+                        <a href="{% url 'cast-member-detail' cast_member.slug %}" class="btn btn-outline-dark flex-shrink-0">{{ cast_member.name }}</a>
                     {% endfor %}
                 </div>
                     
@@ -30,35 +30,5 @@
         </div>
     </div>
 </section>
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-8">
-                
-            <article class="mb-5">
-                <header class="mb-4">
-                    <h1 class="mb-1">
-                        <span class="display-4 fw-bolder">{{ movie.title }} </span>
-                    </h1>
-                    <div class="text-muted fst-italic mb-2">Watched on {{ movie.watched}}</div>
-                </header>
-                <section class="mb-5">
-                    <p class="fs-5 mb-4">
-                        {{ movie.comments|safe }}
-                    </p>
-                </section>
-            </article>
-            
-            {% if movie.movie_poster %}
-                <img src="{{movie.movie_poster.url}}" alt="{{movie.movie_poster.url}}" width="500">
-            {% else %}
-            <img src="{% static 'films/images/empty_movie_poster.jpg' %}" alt="{{movie.title}}" width="500">
-            {% endif %}
-
-
-
-        </div>
-    </div>
-</div>
 
 {% endblock %}

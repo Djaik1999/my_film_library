@@ -9,26 +9,58 @@
 
 
 <div class="container">
-    <div class="row">
-        
-        <div class="col-lg-8">
-            {% for member in cast_members %}
-            <div class="card">
-                <div class="card-title justify-content-center">
-                    <h2 class="detail-name">{{ member.name }}</h2>
-                </div>
+    <h4 class="display-6"><b>Вид: </b> card с фото; oneline</h4>
+    <h4 class="display-6"><b>Сортировка: </b> по имени; по дате добавления последнего фильма</h4>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 rw-cols-lg-6 g-3">
 
-                {% if member.phohoto %}
-                <img src="{{member.photo.url}}" alt="{{member.name}}" class="card-img-top">
-                {% else %}
-                <img src="{% static 'films/images/empty_cast_poster.webp' %}" alt="{{member.name}}" class="card-img-top" width="200">
-                {% endif %}
+        {% for cast_member in cast_members %}
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <img src="{{cast_member.photo.url}}" alt="" class="card-img-top">
+                <div class="card-body">
+                    <div class="card-text">{{ cast_member.name }}</div>
+                </div>
+                <div class="card-footer card-ul-footer">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <b>Фильмы: </b> {{cast_member.movie_set.all|length }}
+                        </li>
+                        <li class="list-group-item">
+                            <b>Голоса: </b> {{cast_member.votes }}
+                        </li>
+                    </ul>           
+                </div>
+                <a href="{% url 'cast-member-detail' cast_member.slug %}" class="stretched-link"></a>
             </div>
-            {% endfor %}  
         </div>
-          
+        {% endfor %}
     </div>
 </div>
 
+<hr>
+
+<div class="container">
+    <ul class="list-group">
+        {% for cast_member in cast_members %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="#" class="">{{ cast_member.name }}</a>
+            
+            {% if cast_member.movie_set %}
+            <span>
+                <b>Фильмы: </b>
+                <span class="badge bg-primary rounded-pill">{{cast_member.movie_set.all|length}}</span>
+            </span>
+            {% endif %}
+
+            {% if cast_member.votes %}
+                <span>
+                    <b>Votes: </b>
+                    <span class="badge bg-primary rounded-pill">{{cast_member.votes}}</span>
+                </span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock content %}

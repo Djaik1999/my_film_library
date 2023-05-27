@@ -6,12 +6,12 @@
 
 {% block content %}
 
-<div class="album py-5 bg-body-tertiary h-100">
+<div class="album py-5 bg-body-tertiary">
     <div class="container">
         <divr class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-3">
             {% for movie in movies %}
             <div class="col">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm h-100">
                     <img class="db-placeholder-img card-img-top" 
                         {% if movie.movie_poster %}
                          src="{{movie.movie_poster.url}}"
@@ -23,7 +23,6 @@
 
                 <div class="card-body position-relative">
                     <p class="card-text">{{movie.title}}</p>
-                    <p><small class="text-body-secondary"></small></p>
                     
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
